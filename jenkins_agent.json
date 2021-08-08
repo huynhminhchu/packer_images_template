@@ -20,7 +20,7 @@
     "provisioners" : [
         {
             "type" : "shell",
-            "script" : "./setup.sh",
+            "script" : "./setup_jenkins_agent.sh",
             "execute_command" : "sudo -E -S sh '{{ .Path }}'"
         }
     ]
