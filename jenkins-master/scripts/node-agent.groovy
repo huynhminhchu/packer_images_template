@@ -5,16 +5,19 @@ import com.cloudbees.plugins.credentials.domains.*
 import com.cloudbees.plugins.credentials.impl.*
 import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
 import hudson.plugins.sshslaves.*;
- 
+
+println "--> creating SSH credentials"
+
 domain = Domain.global()
-store = Jenkins.instance
-.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0]
-getStore()
- 
-slavesPrivateKey = new BasicSSHUserPrivateKey(CredentialsScope.GLOBAL,
-         "Jenkins-workers",
-         "Ec2-user",
-         new BasicSSHUserPrivateKey.UsersPrivateKeySource(),
-         "", "")
+store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
+
+slavesPrivateKey = new BasicSSHUserPrivateKey(
+CredentialsScope.GLOBAL,
+"jenkins-slaves",
+"ec2-user",
+new BasicSSHUserPrivateKey.UsersPrivateKeySource(),
+"",
+""
+)
+
 store.addCredentials(domain, slavesPrivateKey)
-//creates SSH credentials based on the AWS Keypair we will use to deploy Jenkins workers instances
